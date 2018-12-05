@@ -104,7 +104,7 @@ public class InPut {
 		
 		int variable;
 		for (variable = 0; variable < names.length; variable++){
-			if (nameVar.equalsIgnoreCase(names)) break; 
+			if (nameVar.equalsIgnoreCase(names[variable])) break; 
 		}	
 		
 		// With switch-case loop, it assigns the value of the variable to the appropriate attribute
@@ -167,7 +167,8 @@ public class InPut {
 
 		try {	
 		        // It uses the class BufferedReader to read the input data file
-				BufferedReader fr = new BufferedReader(new FileReader(fileFullName));
+				FileReader file = new FileReader(fileFullName);
+				BufferedReader fr = new BufferedReader(file);
 				
 				// It defines the line, a boolean which indicates the result of applied the parse 
 				// method and the number of the line what is reading
@@ -181,7 +182,9 @@ public class InPut {
 					// It returns the number of the line which has a mistake (in this case 
 					// isCorrect = false)
 					if (!isCorrect) return numLine;
+				
 				}
+				
 				
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -206,17 +209,19 @@ public class InPut {
 			      // in a file 
 			      BufferedWriter fw = new BufferedWriter(new FileWriter(fileFullName, true));
 			      
-			      fw.write("Temperature: " + temperature);
-			      fw.write("Lattice Length: " + latticeLength);
-			      fw.write("Number of interaction parameters" + J[0]);
+			      fw.write("Temperature: " + temperature + "\n");
+			      fw.write("Lattice Length: " + latticeLength + "\n");
+			      fw.write("Number of interaction parameters: " + J[0] + "\n");
 			      for(int k = 1; k < J.length; k++){
-			    	  fw.write("J"+k+J[k]);
+			    	  fw.write("J: "+J[k] + "\n");
 			      }
 			    
-			      fw.write("MCS: " + mcs);
-			      fw.write("Therm: " + therm);
-			      fw.write("Skip: " + skip);
-			      fw.write("H: " + H);
+			      fw.write("MCS: " + mcs + "\n");
+			      fw.write("Therm: " + therm + "\n");
+			      fw.write("Skip: " + skip + "\n");
+			      fw.write("H: " + H + "\n");
+			      
+			      fw.close();
 			    
 		   	   } catch (FileNotFoundException e) {
 		   		   e.printStackTrace();

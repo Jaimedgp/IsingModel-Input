@@ -3,6 +3,7 @@ import java.io.FileReader;
 
 class InPut {
 
+	private String[] names = {"temperature", "latticeLength", "J", "mcs", "therm", "skip", "H"};
 	/**
 	 *    * Temperature of the system expressed in reduced units.
 	 *       */
@@ -108,13 +109,17 @@ class InPut {
 		String valueVar = lineArray[1];
 		// String unitsVar = lineArray[2];
 		
+		int variable;
+		for (variable = 0; variable < names.length(); variable++){
+			if (nameVar.equalsIgnoreCase(names)) break; 
+		}	
 		
-		switch(nameVar) {
-			case "temperature":
+		switch(variable) {
+			case 0:
 				this.temperature = Double.parseDouble(valueVar);
 				break;
 				
-			case "latticeLength":
+			case 1:
 				this.latticeLength = Integer.parseInt(valueVar);
 				break;
 				
@@ -123,7 +128,7 @@ class InPut {
 		//  	return true;
 		//  	break;
 							
-			case "J":
+			case 2:
 				this.J[0] = Integer.parseInt(valueVar);
 				int nJ = (int) J[0];
 				for(int k = 1; k < J.length; k++) {
@@ -131,19 +136,19 @@ class InPut {
 				}
 				break;
 				
-			case "mcs":
+			case 3:
 				this.mcs = Integer.parseInt(valueVar);
 				break;
 				
-			case "therm":
+			case 4:
 				this.therm = Integer.parseInt(valueVar);
 				break;
 				
-			case "skip":
+			case 5:
 				this.therm = Integer.parseInt(valueVar);
 				break;
 				
-			case "H":
+			case 6:
 				this.H = Double.parseDouble(valueVar);
 				break;
 				

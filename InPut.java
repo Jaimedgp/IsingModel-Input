@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.lang.NumberFormatException;
+
 /**
  * Container of all the information needed to perform the simulation. It reads the data 
  * from the text file passed as parameter.
@@ -44,7 +46,7 @@ public class InPut {
 	 * An array with as many interaction constants as levels of neighbors to 
 	 * consider, as indicated by the nJ attribute.
 	 */
-	public double[] J = { 1.0 , 0.0 };
+	public double[] J = {1.0, 2.0};
 
 	/**
 	 * Number of "Montecarlo" sweeps to do, i.e. the number of iterations
@@ -122,11 +124,19 @@ public class InPut {
 			case 2:
 				// The first value of array of interaction parameters is an integer which is the 
 				// number of J, nJ
-				this.J[0] = Integer.parseInt(valueVar);
-				int nJ = (int) J[0];
-				for(int k = 1; k < J.length; k++) {
-					this.J[k] = Double.parseDouble(valueVar);
+				
+				// For this version we suppose that the interactions are only for first neighbours
+				try {
+					J[0] = Double.parseDouble(valueVar);
+					this.nJ = (int) J[0];
+				
+					for(int k = 1; k < J.length; k++) {
+						this.J[k] = Double.parseDouble(valueVar);
+					}
+				} catch (NumberFormatException nfe) {
+					int err = 0;
 				}
+				
 				break;
 				
 			case 3:
@@ -138,7 +148,7 @@ public class InPut {
 				break;
 				
 			case 5:
-				this.therm = Integer.parseInt(valueVar);
+				this.skip = Integer.parseInt(valueVar);
 				break;
 				
 			case 6:
@@ -211,8 +221,8 @@ public class InPut {
 			      
 			      fw.write("Temperature: " + temperature + "\n");
 			      fw.write("Lattice Length: " + latticeLength + "\n");
-			      fw.write("Number of interaction parameters: " + J[0] + "\n");
-			      for(int k = 1; k < J.length; k++){
+			      fw.write("Number of interaction parameters: " + nJ + "\n");
+			      for(int k = 0; k < J.length; k++){
 			    	  fw.write("J: "+J[k] + "\n");
 			      }
 			    

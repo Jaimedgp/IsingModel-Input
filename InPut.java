@@ -45,6 +45,8 @@ public class InPut {
 	/**
 	 * An array with as many interaction constants as levels of neighbors to 
 	 * consider, as indicated by the nJ attribute.
+	 * 
+	 * This is the module of the interaction parameter of Heisenberg Hamiltonian H = sumij ( -J Si Sj)
 	 */
 	public double[] J = {1.0, 2.0};
 
@@ -93,8 +95,8 @@ public class InPut {
 	public boolean parse (String line){		
 		// It creates an array of two string, one for the name of the variable (temperature, 
 		// latticeLength etc.) and the other one for the value of the this variable)
-		
-		// For this version we suppose that every variable is dimensionless
+		//
+		// For this version we suppose that every variable have the same units
 
 		String lineArray[] = new String[2];
 		// It separate the strings of the line by tabulator
@@ -122,23 +124,25 @@ public class InPut {
 				break;
 				
 			case 2:
-				// The first value of array of interaction parameters is an integer which is the 
-				// number of J, nJ
-				
-				// For this version we suppose that the interactions are only for first neighbours
 				try {
+					
 					String[] valuesJ = new String[J.length];
 					valuesJ = valueVar.split(" ");
 					
-					// The first value is the J Length
+					// The first value of array of interaction parameters is an integer which is the 
+					// number of J, nJ
+					//
+					// For this version we suppose that the interactions are only for first neighbours
 					this.nJ = (int) Double.parseDouble(valuesJ[0]);
 					
+					// create the new J array with the new dimension
 					this.J = new double[nJ];
-					//this.nJ = (int) J[0];
 				
+					// read all J values
 					for(int k = 0; k < J.length; k++) {
 						this.J[k] = Double.parseDouble(valuesJ[k+1]);
 					}
+					
 				} catch (NumberFormatException nfe) {
 					return false;
 				}

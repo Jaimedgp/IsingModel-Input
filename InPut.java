@@ -23,7 +23,7 @@ public class InPut {
 	/**
 	 * Array of strings in which each element is the name of one variable
 	 */
-	private String[] names = {"temperature", "latticeLength", "J", "mcs", "therm", "skip", "H"};
+	private String[] names = {"temperature", "latticeLength", "J", "mcs", "therm", "skip", "H", "nJ"};
 	
 	/**
 	 * Temperature of the system expressed in reduced units.
@@ -127,14 +127,20 @@ public class InPut {
 				
 				// For this version we suppose that the interactions are only for first neighbours
 				try {
-					J[0] = Double.parseDouble(valueVar);
-					this.nJ = (int) J[0];
+					String[] valuesJ = new String[J.length];
+					valuesJ = valueVar.split(" ");
+					
+					// The first value is the J Length
+					this.nJ = (int) Double.parseDouble(valuesJ[0]);
+					
+					this.J = new double[nJ];
+					//this.nJ = (int) J[0];
 				
-					for(int k = 1; k < J.length; k++) {
-						this.J[k] = Double.parseDouble(valueVar);
+					for(int k = 0; k < J.length; k++) {
+						this.J[k] = Double.parseDouble(valuesJ[k+1]);
 					}
 				} catch (NumberFormatException nfe) {
-					int err = 0;
+					return false;
 				}
 				
 				break;
@@ -154,6 +160,10 @@ public class InPut {
 			case 6:
 				this.H = Double.parseDouble(valueVar);
 				break;
+				
+			case 7:
+				this.nJ = Integer.parseInt(valueVar);
+				this.J = new double[nJ];
 				
 			default: return false;	
 		}
@@ -223,7 +233,7 @@ public class InPut {
 			      fw.write("Lattice Length: " + latticeLength + "\n");
 			      fw.write("Number of interaction parameters: " + nJ + "\n");
 			      for(int k = 0; k < J.length; k++){
-			    	  fw.write("J: "+J[k] + "\n");
+			    	  fw.write("J["+k+"]: "+J[k] + "\n");
 			      }
 			    
 			      fw.write("MCS: " + mcs + "\n");

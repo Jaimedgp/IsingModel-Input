@@ -10,9 +10,9 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		InPut ines = new InPut();
+		InPut inputData = new InPut();
 
-		String fileName = "ines.txt";
+		String fileName = "inputData.txt";
 		
 		try {
 			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
@@ -23,7 +23,7 @@ public class Main {
 			fw.write("H"+"\t"+"0.0"+"\n");
 			fw.write("skip"+"\t"+"1000"+"\n");
 			fw.write("mcs"+"\t"+"100000"+"\n");
-			fw.write("J"+"\t"+"2 1.0 0.0"+"\n");
+			fw.write("J"+"\t"+"3.0 4.0 5.0 6.0"+"\n");
 			fw.close();
 		} catch (FileNotFoundException e) {
 	   		   e.printStackTrace();
@@ -33,9 +33,9 @@ public class Main {
 	   	   System.out.println("The input/output operation has failed");
 	   	}
 
-		int numline = ines.read(fileName);
+		int numline = inputData.read(fileName);
 
-		ines.write("hola.txt");
+		inputData.write("outPutData.txt");
 	}
 
 }

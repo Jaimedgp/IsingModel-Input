@@ -83,6 +83,31 @@ public class InPut {
 		
 	}
 	
+  /**
+   * This constructor creates an InputData object with the given parameters.
+   * 
+   * @param latticeSize is the number of spins that are in each of the sides of the 
+   * square that will hold the magnetic surface to simulate
+   * @param temperature the value of the temperature in reduced units
+   * @param externalMagneticField the external magnetic field that will affect the surface
+   * @param nJ the number of concentric levels of neighbors to consider
+   * @param J a vector with as many interaction constants as levels of neighbors to consider
+   * @param mcs number of montecarlo sweeps to do
+   * @param therm the number of sweeps to perform before starting taking samples
+   * @param skip number of sweeps to do in order to take one sample 
+   */
+  public  InputData(int latticeLength, double temperature, double H, int nJ, double[] J, int mcs, int therm, int skip) {
+
+	  this.latticeLength = latticeLength;
+	  this.temperature = temperature;
+	  this.H = H;
+	  this.nJ = nJ;
+	  this.J = new double[nJ];
+	  this.J = J;
+	  this.mcs = mcs;
+	  this.therm = therm;
+	  this.skip = skip;
+  }
 	
 	/**
 	  * This method reads the string provided and add the values that can be 

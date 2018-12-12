@@ -10,7 +10,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		InPut inputData = new InPut();
+		InPut4Main inputData = new InPut4Main();
 
 		String fileName = "inputData.txt";
 		

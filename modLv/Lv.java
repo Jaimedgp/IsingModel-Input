@@ -98,6 +98,7 @@ class Lv extends r2ms.common.InputData {
 				
 			case 1:
 				this.latticeLength = Integer.parseInt(valueVar);
+				if(latticeLength < 0) return false;
 				break;
 				
 			case 2:
@@ -118,6 +119,8 @@ class Lv extends r2ms.common.InputData {
 					// read all J values
 					for(int k = 0; k < J.length; k++) {
 						this.J[k] = Double.parseDouble(valuesJ[k+1]);
+						if(J[k] < 0) return false;
+						if(J[k-1] > J[k]) return false;
 					}
 					
 				} catch (NumberFormatException nfe) {
@@ -128,14 +131,17 @@ class Lv extends r2ms.common.InputData {
 				
 			case 3:
 				this.mcs = Integer.parseInt(valueVar);
+				if(mcs < 0) return false;
 				break;
 				
 			case 4:
 				this.therm = Integer.parseInt(valueVar);
+				if(therm < 0) return false;
 				break;
 				
 			case 5:
 				this.skip = Integer.parseInt(valueVar);
+				if(skip < 0) return false;
 				break;
 				
 			case 6:
@@ -144,6 +150,7 @@ class Lv extends r2ms.common.InputData {
 
 			case 7:
 				this.nJ = Integer.parseInt(valueVar);
+				if(nJ < 0) return false;
 				this.J = new double[nJ];
 								
 			default: return false;	

@@ -128,7 +128,7 @@ public boolean parse (String line){
  
  String nameVar = lineArray[0];
  String valueVar = lineArray[1];
- String unitsVar = lineArray[2];
+ String unitsVar;
  
  int variable;
  for (variable = 0; variable < names.length; variable++){
@@ -140,6 +140,8 @@ public boolean parse (String line){
  // For this version we suppose that there are not errors in the input file
  switch(variable) {
   case 0:
+
+   unitsVar = lineArray[2];
    this.temperature = Double.parseDouble(valueVar);
    if (!parseTempUnits(unitsVar)) {
 	   return false;
@@ -154,7 +156,9 @@ public boolean parse (String line){
    
   case 2:
    try {
-    
+
+	unitsVar = lineArray[2];
+	
     String[] valuesJ = new String[J.length];
     valuesJ = valueVar.split(" ");
     
@@ -196,7 +200,11 @@ public boolean parse (String line){
    break;
    
   case 6:
+	  unitsVar = lineArray[2];
    this.H = Double.parseDouble(valueVar);
+   if (!parseFieldUnits(unitsVar)) {
+	   return false;
+   }
    break;
    
   case 7:
@@ -232,6 +240,86 @@ private boolean parseTempUnits (String unitsVar) {
 			break;
 		case 2:
 			temperature = (temperature-32)*(5/9.0) + 273.15;
+			break;
+		default: 
+			return false;
+	}
+	
+
+	if (temperature < 0) return false;
+	
+	return true;
+}
+
+
+/**
+ * Parse energy units
+ */
+
+private boolean parseEnergyUnits (String unitsVar) {
+	
+	String[] unitsEnergy = {"J", "erg", "eV", "Hartree"};
+	
+	int energyUnits;
+	 for (energyUnits = 0; energyUnits < unitsEnergy.length; energyUnits++){
+	  if (unitsVar.equalsIgnoreCase(unitsEnergy[energyUnits])) break; 
+	 }
+	 
+	switch (energyUnits){
+	
+		case 0:
+			// Julios
+			break;
+		case 1:
+		    for(int k = 0; k < J.length; k++) {
+		    	// Ergios
+		    	J[k] = J[k] * Math.pow(10,-7);
+		    	
+		    }
+			break;
+		case 2:
+		    for(int k = 0; k < J.length; k++) {
+		    	// electronVoltios
+		    	J[k] = J[k] * 1.60218 * Math.pow(10,-19);
+		    	
+		    }
+			break;
+		
+		case 3: 
+			for(int k = 0; k < J.length; k++) {
+		    	// Hartree
+		    	J[k] = J[k] * 4.35974 * Math.pow(10,-18);
+		    	
+		    }
+			
+			break;
+		default: 
+			return false;
+	}
+	
+	return true;
+}
+
+
+/**
+ * Parse temperature units
+ */
+
+private boolean parseFieldUnits (String unitsVar) {
+	
+	String[] unitsField = {"A/m", "Oe"};
+	
+	int fieldUnits;
+	 for (fieldUnits = 0; fieldUnits < unitsField.length; fieldUnits++){
+	  if (unitsVar.equalsIgnoreCase(unitsField[fieldUnits])) break; 
+	 }
+	 
+	switch (fieldUnits){
+	
+		case 0:
+			break;
+		case 1:
+			H = H * 79.5774715459424;
 			break;
 		default: 
 			return false;

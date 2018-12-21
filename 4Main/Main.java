@@ -10,20 +10,20 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		InPut4Main inputData = new InPut4Main();
+		Input inputData = new Input();
 
 		String fileName = "inputData.txt";
 		
 		try {
 			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
 	
-			fw.write("latticeLength"+"\t"+"30"+"\n");
-			fw.write("temperature"+"\t"+"0.9"+"\n");
+			fw.write("latticeLength"+"\t"+"40"+"\n");
+			fw.write("temperature"+"\t"+"0.9"+"\t"+"K"+"\n");
 			fw.write("therm"+"\t"+"25000"+"\n");
-			fw.write("H"+"\t"+"0.0"+"\n");
+			fw.write("H"+"\t"+"0.0"+"\t"+"A/m"+"\n");
 			fw.write("skip"+"\t"+"1000"+"\n");
 			fw.write("mcs"+"\t"+"100000"+"\n");
-			fw.write("J"+"\t"+"2.0 4.0 5.0"+"\n");
+			fw.write("J"+"\t"+"3.0 4.0 5.0 6.0"+"\t"+ "J" +"\n");
 			fw.close();
 		} catch (FileNotFoundException e) {
 	   		   e.printStackTrace();
@@ -34,9 +34,6 @@ public class Main {
 	   	}
 
 		int numline = inputData.read(fileName);
-		if (numline != 0) {
-			System.out.println("Todo esta bien pero da error en la linea "+numline);
-		}
 
 		inputData.write("outPutData.txt");
 	}

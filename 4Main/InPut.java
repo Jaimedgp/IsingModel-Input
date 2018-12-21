@@ -17,7 +17,7 @@ import java.lang.NumberFormatException;
  * 
  */
 
-public class InPut4Main {
+public class Input {
 
 /**
  * Array of strings in which each element is the name of one variable
@@ -78,7 +78,7 @@ public double H = 0.0;
 /**
  * Constructor of the class InPut
  */
-public InPut4Main() {
+public Input() {
  
 }
 
@@ -95,7 +95,7 @@ public InPut4Main() {
    * @param therm the number of sweeps to perform before starting taking samples
    * @param skip number of sweeps to do in order to take one sample 
    */
-  public  InPut4Main(int latticeLength, double temperature, double H, int nJ, double[] J, int mcs, int therm, int skip) {
+  public  Input (int latticeLength, double temperature, double H, int nJ, double[] J, int mcs, int therm, int skip) {
 
   this.latticeLength = latticeLength;
   this.temperature = temperature;
@@ -128,7 +128,7 @@ public boolean parse (String line){
  
  String nameVar = lineArray[0];
  String valueVar = lineArray[1];
- // String unitsVar = lineArray[2];
+ String unitsVar = lineArray[2];
  
  int variable;
  for (variable = 0; variable < names.length; variable++){
@@ -141,6 +141,10 @@ public boolean parse (String line){
  switch(variable) {
   case 0:
    this.temperature = Double.parseDouble(valueVar);
+   if (!parseTempUnits(unitsVar)) {
+	   return false;
+   }
+   
    break;
    
   case 1:
@@ -202,9 +206,40 @@ public boolean parse (String line){
    
   default: return false; 
  }
- 
+
  return true;
   }
+
+/**
+ * Parse temperature units
+ */
+
+private boolean parseTempUnits (String unitsVar) {
+	
+	String[] unitsTemp = {"K", "C", "F"};
+	
+	int tempUnits;
+	 for (tempUnits = 0; tempUnits < unitsTemp.length; tempUnits++){
+	  if (unitsVar.equalsIgnoreCase(unitsTemp[tempUnits])) break; 
+	 }
+	 
+	switch (tempUnits){
+	
+		case 0:
+			break;
+		case 1:
+			temperature += 273.15;
+			break;
+		case 2:
+			temperature = (temperature-32)*(5/9.0) + 273.15;
+			break;
+		default: 
+			return false;
+	}
+	
+	return true;
+}
+
 
 
 /**

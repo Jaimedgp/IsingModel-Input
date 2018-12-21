@@ -55,7 +55,7 @@ public class InputData {
    */
   public int read(String fileFullName) {
     //TODO
-    
+   
     return 0;
   }
 

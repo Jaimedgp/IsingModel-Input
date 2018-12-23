@@ -14,6 +14,20 @@ public class Main {
 
 		String fileName = "inputData.txt";
 		
+		//writeInputfile(fileName);
+		
+		int numline = inputData.read(fileName);
+		
+		if (numline == 0 ) {
+			inputData.write("outPutData.txt");
+		}
+		else if (numline != 0 ) {
+			System.out.println(numline);
+		}		
+	}
+	
+	public static void writeInputfile(String fileName) {
+
 		try {
 			BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
 	
@@ -23,7 +37,7 @@ public class Main {
 			fw.write("H"+"\t"+"0.0"+"\t"+"A/m"+"\n");
 			fw.write("skip"+"\t"+"1000"+"\n");
 			fw.write("mcs"+"\t"+"100000"+"\n");
-			fw.write("J"+"\t"+"3.0 4.0 5.0 6.0"+"\t"+ "J" +"\n");
+			fw.write("J"+"\t"+"3.0 4.0 3.0 -2.0"+"\t"+ "J" +"\n");
 			fw.close();
 		} catch (FileNotFoundException e) {
 	   		   e.printStackTrace();
@@ -33,9 +47,6 @@ public class Main {
 	   	   System.out.println("The input/output operation has failed");
 	   	}
 
-		int numline = inputData.read(fileName);
-
-		inputData.write("outPutData.txt");
 	}
 
 }

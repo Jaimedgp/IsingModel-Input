@@ -172,10 +172,12 @@ public class Input {
 					this.J = new double[nJ];
 
 					// read all J values
-					for(int k = 0; k < J.length; k++) {
+					J[0] = Double.parseDouble(valuesJ[1]);
+					if(J[0] < 0) return false;
+					for(int k = 1; k < J.length; k++) {
 						this.J[k] = Double.parseDouble(valuesJ[k+1]);
 						if(J[k] < 0) return false;
-						if(J[k-1] > J[k]) return false;
+						if(J[k-1] < J[k]) return false;
 					}
 
 				} catch (NumberFormatException nfe) {

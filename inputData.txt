@@ -1,0 +1,7 @@
+latticeLength	40
+temperature	0.9	K
+therm	25000
+H	0.0	A/m
+skip	1000
+mcs	100000
+J	3.0 4.0 3.0 -2.0	J
